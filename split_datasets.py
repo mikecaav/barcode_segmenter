@@ -39,10 +39,16 @@ if __name__ == '__main__':
     for index, datatype_path in zip(index_list, paths_list):
         for i in range(index[0], index[1]):
             filename = target_path_list_dir[i]
-            target_src_path = os.path.join(TARGET_PATH, filename)
-            target_dst_path = os.path.join(datatype_path, filename)
-            predictor_src_path = os.path.join(PREDICTOR_PATH, filename)
-            predictor_dst_path = os.path.join(datatype_path, filename)
-            move(target_src_path, target_dst_path)
-            move(predictor_src_path, predictor_dst_path)
+
+            target_src_file_path = os.path.join(TARGET_PATH, filename)
+            target_dst_path = os.path.join(datatype_path, 'target')
+            Path.create_directory(target_dst_path)
+            target_dst_path = os.path.join(target_dst_path, filename)
+            move(target_src_file_path, target_dst_path)
+
+            predictor_src_file_path = os.path.join(PREDICTOR_PATH, filename)
+            predictor_dst_path = os.path.join(datatype_path, 'predictor')
+            Path.create_directory(predictor_dst_path)
+            predictor_dst_path = os.path.join(predictor_dst_path, filename)
+            move(predictor_src_file_path, predictor_dst_path)
 
