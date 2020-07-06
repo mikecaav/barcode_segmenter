@@ -1,42 +1,71 @@
-import albumentations
-import cv2
-import os
 import matplotlib.pyplot as plt
-from random import shuffle
+import os
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+import numpy as np
+from tqdm import tqdm
+import cv2
+from skimage.transform import resize
 
-MASK_TRAIN_PATH = 'dataset/train/target/'
-IMAGE_TRAIN_PATH = 'dataset/train/predictor/'
+MASK_TRAIN_PATH = 'dataset/train/mask'
+IMAGE_TRAIN_PATH = 'dataset/train/image'
+MASK_VALIDATION_PATH = 'dataset/validation/mask'
+IMAGE_VALIDATION_PATH = 'dataset/validation/image'
+MASK_TEST_PATH = 'dataset/test/mask'
+IMAGE_TEST_PATH = 'dataset/test/image'
 
-data_augmentor = albumentations.Compose(
-    [
-        albumentations.Resize(300, 300),
-        albumentations.HorizontalFlip(p=0.5),
-        albumentations.Rotate(limit=(-90, 90)),
-        albumentations.VerticalFlip(p=0.5),
-        albumentations.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-    ], p=1
-)
+IMAGE_HEIGHT = 256
+IMAGE_WEIGHT = 256
+BATCH_SIZE = 16
 
+def get_data_generator(datatype_image_path, datatype_mask_path):
+    SEED = 1
+    files_list = os.listdir(f'{datatype_image_path}')
+    num_of_samples = len(files_list)
+    list_of_images = np.zeros((num_of_samples, IMAGE_HEIGHT, IMAGE_WEIGHT, 3))
+    list_of_masks = np.zeros((num_of_samples, IMAGE_HEIGHT, IMAGE_WEIGHT, 3))
+    for i, file in enumerate(tqdm(files_list, 'Loading images')):
+        image_file_path = f'{datatype_image_path}/{file}'
+        image = cv2.imread(image_file_path)
+        image = resize(image, (IMAGE_HEIGHT, IMAGE_WEIGHT))
+        list_of_images[i] = image
 
-def get_data_train_generator(new_num_of_images):
-    filenames_list = os.listdir(MASK_TRAIN_PATH)
-    shuffle(filenames_list)
-    for filename in filenames_list:
-        image_path = os.path.join(IMAGE_TRAIN_PATH, filename)
-        mask_path = os.path.join(MASK_TRAIN_PATH, filename)
-        image = cv2.imread(image_path)
-        mask = cv2.imread(mask_path)
-        for i in range(new_num_of_images):
-            augmented_data = data_augmentor(image=image, mask=mask)
-            yield augmented_data['image'], augmented_data['mask']
+        mask_file_path = f'{datatype_mask_path}/{file}'
+        mask = cv2.imread(mask_file_path)
+        mask = resize(mask, (IMAGE_HEIGHT, IMAGE_WEIGHT))
+        list_of_masks[i] = mask
+
+    image_datagen = ImageDataGenerator(
+        height_shift_range=0.2,
+        horizontal_flip=True,
+        rotation_range=15,
+        width_shift_range=0.2,
+        shear_range=0.2
+    )
+    image_datagen.fit(x=list_of_images, augment=True, seed=SEED)
+
+    mask_datagen = ImageDataGenerator(
+        height_shift_range=0.2,
+        horizontal_flip=True,
+        rotation_range=15,
+        width_shift_range=0.2,
+        shear_range=0.2
+    )
+    mask_datagen.fit(x=list_of_masks, augment=True, seed=SEED)
+
+    X = image_datagen.flow(list_of_images, batch_size=BATCH_SIZE, shuffle=True, seed=SEED)
+    y = mask_datagen.flow(list_of_masks, batch_size=BATCH_SIZE, shuffle=True, seed=SEED)
+    return X, y
 
 
 def plot_images(image, mask):
-    fig, ax = plt.subplots(nrows=2)
+    fig, ax = plt.subplots(ncols=2)
     ax[0].imshow(image)
     ax[1].imshow(mask)
     plt.show()
 
 
-for image, mask in get_data_train_generator(10):
-    plot_images(image, mask)
+if __name__ == '__main__':
+    image_datagen, mask_datagen = get_data_generator(IMAGE_VALIDATION_PATH, MASK_VALIDATION_PATH)
+    for (images, masks) in zip(image_datagen, mask_datagen):
+        for (image, mask) in zip(images, masks):
+            plot_images(image, mask)
