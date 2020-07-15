@@ -1,8 +1,9 @@
 import data
 import tensorflow as tf
 from model import build_model
-import cv2
 from split_datasets import Path
+import cv2
+import numpy as np
 from skimage.io import imsave
 
 WEIGHTS_PATH = 'unet_200_steps.hdf5'
@@ -15,10 +16,23 @@ X_test, y_test = data.get_data_generator(data.IMAGE_TEST_PATH, data.MASK_TEST_PA
 Path.create_directory(TEST_RESULT_PATH)
 
 i = 0
-for image_batch in X_test:
-    for image in image_batch:
-        mask = model.predict(tf.expand_dims(image, axis=0))
-        filtered_image = cv2.bitwise_and(image, mask[0])
-        data.plot_images(image, filtered_image)
-        imsave(f'{TEST_RESULT_PATH}/{i}.png', filtered_image)
-        i += 1
+m = tf.keras.metrics.MeanIoU(num_classes=2)
+
+
+def compute_iou(y_pred, y_true):
+    m.update_state(y_true, y_pred)
+    return m.result()
+
+
+if __name__ == '__main__':
+    for image_batch, mask_batch in zip(X_test, y_test):
+        for image, mask in zip(image_batch, mask_batch):
+            mask_predicted = model.predict(tf.expand_dims(image, axis=0))[0]
+            mask_predicted[mask_predicted <= .5] = 0
+            mask_predicted[mask_predicted > .5] = 1
+            mask[mask <= .5] = 0
+            mask[mask > .5] = 1
+            print(compute_iou(mask, mask_predicted))
+            imsave(f'{TEST_RESULT_PATH}/{i}_predicted.png', mask_predicted)
+            imsave(f'{TEST_RESULT_PATH}/{i}_true.png', mask)
+            i += 1
