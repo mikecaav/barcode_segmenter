@@ -1,12 +1,10 @@
 from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, Conv2DTranspose, Dropout, concatenate
 from tensorflow.keras.models import Model
-import data
-from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
 import tensorflow as tf
 
 
 def build_model():
-    img_size_target = 256
+    img_size_target = 512
     start_neurons = 16
     input_layer = Input((img_size_target, img_size_target, 3))
     conv1 = Conv2D(start_neurons * 1, (3, 3), activation="relu", padding="same")(input_layer)
@@ -67,3 +65,7 @@ def build_model():
     model.summary()
     return model
 
+def get_trained_model(weights_filename='unet_200_steps.hdf5'):
+    model = build_model()
+    model.load_weights(weights_filename)
+    return model
