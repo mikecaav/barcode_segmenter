@@ -38,7 +38,7 @@ and the rest for training.
 ## Training
 To train the model we need to run the following command
 ```
-$ python train.py
+$ python3 train.py
 ```
 it will automatically look for the training dataset in ./dataset/train/ path and ./dataset/validation/ path for 
 validation dataset (paths created with the split_dataset command) and start the training process, once its done,
@@ -54,7 +54,7 @@ $ wget https://srv-file10.gofile.io/download/7FcqdD/unet_200_steps.hdf5
 ## Testing the model
 To test the model we use the following command
 ```
-$ python test.py
+$ python3 test.py
 ```
 The IoU from the resulted model its 80.13 from the test dataset and here are some of the results of our model
 ### True
