@@ -1,12 +1,17 @@
 # Barcode segmentation
 This repository contains the instructions to train and test a U-Net
 built to extract the zone from an image where a barcode is found.<br>
-## Requirements
-Python 3.7 or later with all requirements, to install use the following commands incluiding tensorflow:
- ```
+To download the repo use the following command
+```
 $ git clone https://github.com/mikecaav/barcode_segmentor.git
 $ cd barcode_segmentor
-$ pip install -U -r requirements.txt
+```
+## Set your environment
+In this project we use Python 3.7 or later with all requirements<br>
+To set all the requirements with anaconda, use the following commands
+ ```
+$ conda env create -f environment.yml
+$ conda activate -n barcode_segmenter
  ```
 ## Dataset
 We used the <a href=http://artelab.dista.uninsubria.it/downloads/datasets/barcode/hough_barcode_1d/1d_barcode_extended_plain.zip>
