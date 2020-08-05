@@ -7,9 +7,9 @@ astor                     0.8.0                    py37_0
 blas                      1.0                         mkl  
 blinker                   1.4                      py37_0  
 brotlipy                  0.7.0           py37he774522_1000  
-ca-certificates           2020.6.24                     0    anaconda
+ca-certificates           2020.6.24                     0  
 cachetools                4.1.0                      py_1  
-certifi                   2020.6.20                py37_0    anaconda
+certifi                   2020.6.20                py37_0  
 cffi                      1.14.0           py37h7a1dbc1_0  
 chardet                   3.0.4                 py37_1003  
 click                     7.1.2                      py_0  
@@ -54,7 +54,7 @@ numpy-base                1.18.5           py37hc3f5095_0
 oauthlib                  3.1.0                      py_0  
 olefile                   0.46                     py37_0    anaconda
 opencv                    3.4.2            py37h40b0b35_0  
-openssl                   1.1.1g               he774522_0    anaconda
+openssl                   1.1.1g               he774522_0  
 opt_einsum                3.1.0                      py_0  
 pillow                    7.2.0            py37hcc1f983_0    anaconda
 pip                       20.1.1                   py37_1  
