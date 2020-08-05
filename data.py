@@ -13,8 +13,8 @@ IMAGE_VALIDATION_PATH = 'dataset/validation/image'
 MASK_TEST_PATH = 'dataset/test/mask'
 IMAGE_TEST_PATH = 'dataset/test/image'
 
-IMAGE_HEIGHT = 256
-IMAGE_WEIGHT = 256
+IMAGE_HEIGHT = 512
+IMAGE_WEIGHT = 512
 BATCH_SIZE = 16
 
 

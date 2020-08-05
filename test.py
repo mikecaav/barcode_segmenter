@@ -15,7 +15,8 @@ model.load_weights(WEIGHTS_PATH)
 X_test, y_test = data.get_data_generator(data.IMAGE_TEST_PATH, data.MASK_TEST_PATH)
 Path.create_directory(TEST_RESULT_PATH)
 
-i = 0
+i = 1
+iou_score = 0
 m = tf.keras.metrics.MeanIoU(num_classes=2)
 
 
@@ -32,7 +33,14 @@ if __name__ == '__main__':
             mask_predicted[mask_predicted > .5] = 1
             mask[mask <= .5] = 0
             mask[mask > .5] = 1
-            print(compute_iou(mask, mask_predicted))
+            iou_score += compute_iou(mask, mask_predicted)
+
             imsave(f'{TEST_RESULT_PATH}/{i}_predicted.png', mask_predicted)
             imsave(f'{TEST_RESULT_PATH}/{i}_true.png', mask)
             i += 1
+            if i == 20:
+                print(f'iou score: {float(iou_score/i)}')
+                break
+        if i == 20:
+            break
+

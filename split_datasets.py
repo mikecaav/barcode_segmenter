@@ -2,13 +2,12 @@ from shutil import move
 import os
 from random import shuffle
 
-MASK_PATH = '1d_barcode_extended_plain/1d_barcode_extended_plain/Detection'
-IMAGE_PATH = '1d_barcode_extended_plain/1d_barcode_extended_plain/Original'
+MASK_PATH = '1d_barcode_extended_plain/Detection'
+IMAGE_PATH = '1d_barcode_extended_plain/Original'
 TRAIN_PATH = 'dataset/train'
 TEST_PATH = 'dataset/test'
 VALIDATION_PATH = 'dataset/validation'
 
-mask_path_list_dir = os.listdir(MASK_PATH)
 TEST_SIZE = .2
 VALIDATION_SIZE = .2
 
@@ -28,6 +27,7 @@ class Path:
 
 
 if __name__ == '__main__':
+    mask_path_list_dir = os.listdir(MASK_PATH)
     Path.create_directory(TRAIN_PATH)
     Path.create_directory(TEST_PATH)
     Path.create_directory(VALIDATION_PATH)
