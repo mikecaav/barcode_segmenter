@@ -1,12 +1,17 @@
 # Barcode segmentation
 This repository contains the instructions to train and test a U-Net
 built to extract the zone from an image where a barcode is found.<br>
-## Requirements
-Python 3.7 or later with all requirements, to install use the following commands incluiding tensorflow:
- ```
+To download the repo use the following command
+```
 $ git clone https://github.com/mikecaav/barcode_segmentor.git
 $ cd barcode_segmentor
-$ pip install -U -r requirements.txt
+```
+## Set your environment
+In this project we use Python 3.7 or later with all requirements<br>
+To set all the requirements with anaconda, use the following commands
+ ```
+$ conda env create -f environment.yml
+$ conda activate barcode_segmenter
  ```
 ## Dataset
 We used the <a href=http://artelab.dista.uninsubria.it/downloads/datasets/barcode/hough_barcode_1d/1d_barcode_extended_plain.zip>
@@ -33,7 +38,7 @@ and the rest for training.
 ## Training
 To train the model we need to run the following command
 ```
-$ python train.py
+$ python3 train.py
 ```
 it will automatically look for the training dataset in ./dataset/train/ path and ./dataset/validation/ path for 
 validation dataset (paths created with the split_dataset command) and start the training process, once its done,
@@ -43,12 +48,24 @@ you'll have a hdf5 file.
 If instead of training your own model you want to use our pre-trained model, you can download the weights with the 
 following command
 ```
-$ wget https://srv-file10.gofile.io/download/7FcqdD/unet_200_steps.hdf5
+$ wget https://download1979.mediafire.com/gcoehtcs63wg/ooehtw7pf2o3d33/unet_200_steps.hdf5
 ```
 
 ## Testing the model
 To test the model we use the following command
 ```
-$ It will run a 
+$ python3 test.py
 ```
-
+The IoU from the resulted model its 80.13 from the test dataset and here are some of the results of our model
+### True
+![original_image](media/1_true.png "predictor")<br>
+### Predicted
+![corresponding_mask](media/1_predicted.png "respone")<br>
+### True
+![original_image](media/2_true.png "predictor")<br>
+### Predicted
+![corresponding_mask](media/2_predicted.png "respone")<br>
+### True
+![original_image](media/3_true.png "predictor")<br>
+### Predicted
+![corresponding_mask](media/3_predicted.png "respone")<br>
