@@ -2,8 +2,8 @@ from shutil import move
 import os
 from random import shuffle
 
-MASK_PATH = '1d_barcode_extended_plain/1d_barcode_extended_plain/Detection'
-IMAGE_PATH = '1d_barcode_extended_plain/1d_barcode_extended_plain/Original'
+MASK_PATH = '1d_barcode_extended_plain/Detection'
+IMAGE_PATH = '1d_barcode_extended_plain/Original'
 TRAIN_PATH = 'dataset/train'
 TEST_PATH = 'dataset/test'
 VALIDATION_PATH = 'dataset/validation'
