@@ -49,6 +49,18 @@ $ wget https://srv-file10.gofile.io/download/7FcqdD/unet_200_steps.hdf5
 ## Testing the model
 To test the model we use the following command
 ```
-$ It will run a 
+$ python test.py
 ```
-
+The IoU from the resulted model its 80.13 from the test dataset and here are some of the results of our model
+### True
+![original_image](media/1_true.png "predictor")<br>
+### Predicted
+![corresponding_mask](media/1_predicted.png "respone")<br>
+### True
+![original_image](media/2_true.png "predictor")<br>
+### Predicted
+![corresponding_mask](media/2_predicted.png "respone")<br>
+### True
+![original_image](media/3_true.png "predictor")<br>
+### Predicted
+![corresponding_mask](media/3_predicted.png "respone")<br>
