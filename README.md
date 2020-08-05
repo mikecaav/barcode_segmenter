@@ -48,7 +48,7 @@ you'll have a hdf5 file.
 If instead of training your own model you want to use our pre-trained model, you can download the weights with the 
 following command
 ```
-$ wget https://srv-file10.gofile.io/download/7FcqdD/unet_200_steps.hdf5
+$ wget https://download1979.mediafire.com/gcoehtcs63wg/ooehtw7pf2o3d33/unet_200_steps.hdf5
 ```
 
 ## Testing the model
