@@ -11,7 +11,7 @@ In this project we use Python 3.7 or later with all requirements<br>
 To set all the requirements with anaconda, use the following commands
  ```
 $ conda env create -f environment.yml
-$ conda activate -n barcode_segmenter
+$ conda activate barcode_segmenter
  ```
 ## Dataset
 We used the <a href=http://artelab.dista.uninsubria.it/downloads/datasets/barcode/hough_barcode_1d/1d_barcode_extended_plain.zip>
