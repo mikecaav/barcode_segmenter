@@ -56,6 +56,7 @@ To test the model we use the following command
 ```
 $ python3 test.py
 ```
+This command will crete a folder with 20 predictions from the test dataset.<br>
 The IoU from the resulted model its 0.9281 from the test dataset and here are some of the results of our model
 ### True
 ![original_image](media/1_true.png "predictor")<br>
