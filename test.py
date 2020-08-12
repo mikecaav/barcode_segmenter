@@ -34,7 +34,6 @@ if __name__ == '__main__':
             mask[mask <= .5] = 0
             mask[mask > .5] = 1
             iou_score += compute_iou(mask, mask_predicted)
-
             imsave(f'{TEST_RESULT_PATH}/{i}_predicted.png', mask_predicted)
             imsave(f'{TEST_RESULT_PATH}/{i}_true.png', mask)
             i += 1

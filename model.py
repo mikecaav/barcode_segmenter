@@ -4,7 +4,7 @@ import tensorflow as tf
 
 
 def build_model():
-    img_size_target = 512
+    img_size_target = 256
     start_neurons = 16
     input_layer = Input((img_size_target, img_size_target, 3))
     conv1 = Conv2D(start_neurons * 1, (3, 3), activation="relu", padding="same")(input_layer)
@@ -55,15 +55,16 @@ def build_model():
     uconv1 = Conv2D(start_neurons * 1, (3, 3), activation="relu", padding="same")(uconv1)
     uconv1 = Conv2D(start_neurons * 1, (3, 3), activation="relu", padding="same")(uconv1)
 
-    output_layer = Conv2D(3, (1, 1), padding="same", activation="sigmoid")(uconv1)
+    output_layer = Conv2D(3, (1, 1), padding="same", activation='sigmoid')(uconv1)
     model = Model(inputs=[input_layer], outputs=[output_layer])
     model.compile(
         optimizer='adam',
         loss='binary_crossentropy',
-        metrics=[tf.keras.metrics.MeanIoU(num_classes=2)]
+        metrics=['accuracy'],
     )
     model.summary()
     return model
+
 
 def get_trained_model(weights_filename='unet_200_steps.hdf5'):
     model = build_model()

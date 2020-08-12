@@ -48,7 +48,7 @@ you'll have a hdf5 file.
 If instead of training your own model you want to use our pre-trained model, you can download the weights with the 
 following command
 ```
-$ wget https://download1979.mediafire.com/gcoehtcs63wg/ooehtw7pf2o3d33/unet_200_steps.hdf5
+$ wget http://download1499.mediafire.com/cswtzba31i3g/upatciw98o70jzb/unet_200_steps.hdf5
 ```
 
 ## Testing the model
@@ -56,7 +56,8 @@ To test the model we use the following command
 ```
 $ python3 test.py
 ```
-The IoU from the resulted model its 80.13 from the test dataset and here are some of the results of our model
+This command will crete a folder with 20 predictions from the test dataset.<br>
+The IoU from the resulted model its 0.9281 from the test dataset and here are some of the results of our model
 ### True
 ![original_image](media/1_true.png "predictor")<br>
 ### Predicted
